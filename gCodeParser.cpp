@@ -108,9 +108,9 @@ int main ()
 			firstPosFlag = 0;
 			outfile << ";positionMid ";
 			infile >> word;
-			xRef = stof(word);
+			xRef = stof(word) - xOrigin;
 			infile >> word;
-			yRef = stof(word);							// store base values of x/y of this part until next part
+			yRef = yOrigin - stof(word);							// store base values of x/y of this part until next part
 			outfile << xRef << " " << yRef;				// write as comment to gCode							
 		}
 		
@@ -159,6 +159,7 @@ int main ()
 				volume = ySize*xSize*zSize;														// required volume of solder paste per pad
 				outfile << "G0 F60 			;Set extrusion speed to 60 steps/min = 1 step/s" << endl;
 				outfile << "G1 E" << ceil(volume / volumePerStep) << endl;						// number of steps to extrude reqiured volume
+				outfile << "G4 S2 			;wait 2s" << endl; 
 				outfile << "G0 F600 		;Set travel speed to 600 mm/min = 10 mm/s" << endl;
 			}
 		}
