@@ -39,11 +39,21 @@ int main ()
 	outfile << fixed;					// always print two decimals
 	outfile << setprecision(2);
 	
-	outfile << "M83 			;Set E to Relative Positioning" << endl;
-	outfile << "M92 E1.00 		;Set eSteps to 1 step/mm for better readibility of extrusion (e.g. G1 E3.00 will result in 3 microsteps)" << endl;
-	outfile << "M204 T10 		;Set travel acceleration to 10mm/s²" << endl;
-	outfile << "M204 P5 		;Set extrude acceleration to 5mm/s²" << endl;
-	outfile << "G0 F600 		;Set travel speed to 600 mm/min = 10 mm/s" << endl << endl;
+	outfile	<< "; HowTo:" << endl
+			<< "; Move the solder paste extruder via pronterface or similar until the canula tip just touches the PCB at" << endl
+			<< "; the xOrigin and yOrigin that was chosen in KiCad and entered in config.h." << endl
+			<< "; Then send the following gCode:" << endl << endl
+			<< "G92 X0 Y0 Z0		;Set the canula tip current XYZ position to 0, 0, 0" << endl
+			<< "M106 S0 		;Turn-off fan" << endl
+			<< "M104 S0 		;Turn-off hotend" << endl
+			<< "M140 S0 		;Turn-off bed" << endl
+			<< "M302 S0			;allow cold extrusion" << endl
+			<< "M83 			;Set E to Relative Positioning" << endl
+			<< "M92 E1.00 		;Set eSteps to 1 step/mm for better readibility of extrusion (e.g. G1 E3.00 will result in 3 microsteps)" << endl
+			<< "M204 T10 		;Set travel acceleration to 10mm/s²" << endl
+			<< "M204 P5 		;Set extrude acceleration to 5mm/s²" << endl
+			<< "G0 F600 		;Set travel speed to 600 mm/min = 10 mm/s" << endl
+			<< endl;
 	
 	while(!infile.eof())				// stay in loop until end of file 
 	{
